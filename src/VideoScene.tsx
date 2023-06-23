@@ -10,6 +10,7 @@ const VideoTexture: React.FC<{ url: string }> = ({ url }) => {
 
   useEffect(() => {
     video.current.src = url;
+    video.current.crossOrigin = "anonymous";
     video.current.loop = true;
     video.current.muted = true;
     video.current.play();
@@ -24,10 +25,6 @@ const VideoPlane: React.FC<{ videoUrl: string }> = ({ videoUrl }) => (
       <planeBufferGeometry args={[0.71, 1]} />
       <VideoTexture url={videoUrl} />
     </mesh>
-    {<mesh receiveShadow castShadow position={[.55, 0.5, 0.005]}>
-      <planeBufferGeometry args={[0.71, 1]} />
-      <VideoTexture url={'./sd_iddlehd.webm'} />
-    </mesh>}
   </group>
 );
 
