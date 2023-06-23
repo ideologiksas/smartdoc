@@ -1,8 +1,9 @@
-import { OrbitControls, Stars, Plane } from '@react-three/drei';
+import { OrbitControls, Stars, Plane, PerspectiveCamera } from '@react-three/drei';
 import React, { useEffect, useRef } from 'react';
 import { Canvas, useLoader } from '@react-three/fiber';
 import * as THREE from 'three';
 import { TextureLoader } from 'three';
+import { useFrame, useThree } from 'react-three-fiber';
 
 const VideoTexture: React.FC<{ url: string }> = ({ url }) => {
   const video = useRef(document.createElement('video'));
@@ -47,24 +48,42 @@ const HologramProjector: React.FC = () => (
   </mesh>
 );
 
+// Hacemos que OrbitControls esté disponible para r3f
+
+const Controls = () => {
+  const controlsRef = useRef<any>();
+  const { camera, gl } = useThree();
+
+  useFrame(() => {
+    if (controlsRef.current) {
+      controlsRef.current.update();
+      //console.log(controlsRef.current);
+    }
+  });
+
+
+
+  return <OrbitControls target={[ -0.09100015106675328,  0.3236130715250734,   -0.32934198177717106]} ref={controlsRef} args={[camera, gl.domElement]} />;
+};
+
 const VideoScene: React.FC<{ videoUrl: string; floorTextureUrl: string }> = ({ videoUrl, floorTextureUrl }) => {
-  
-    return (
-      <>
-        <Canvas style={{ background: 'black' }} camera={{ position: [0.2,1.1,0.6] }}>
-          <hemisphereLight color={"#ffffff"} groundColor={"#888888"} intensity={0.3} />
-          <directionalLight position={[0, 10, 5]} intensity={0.6} castShadow/>
-          <OrbitControls  />
-          <Stars />
-          <VideoPlane videoUrl={videoUrl} />
-          <Floor textureUrl={floorTextureUrl} />
-          <HologramProjector />
-        </Canvas>
-      </>
-    );
-  };
-  
-  export default VideoScene;
+
+  return (
+      <Canvas style={{ background: 'black' }}>
+        <PerspectiveCamera makeDefault 
+        position={[ 0.3988396435089508,1.0211306702433856,0.554781550240631]} fov={60}  />
+        <hemisphereLight color={"#ffffff"} groundColor={"#888888"} intensity={0.3} />
+        <directionalLight position={[0, 10, 5]} intensity={0.6} castShadow />
+        <Controls />
+        <Stars />
+        <VideoPlane videoUrl={videoUrl} />
+        <Floor textureUrl={floorTextureUrl} />
+        <HologramProjector />
+      </Canvas>
+  );
+};
+
+export default VideoScene;
 
 
 
