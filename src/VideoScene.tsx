@@ -10,7 +10,7 @@ import VideoTexture from './VideoTexture';
 
 const VideoPlane: React.FC<{ videoUrl: string }> = ({ videoUrl }) => (
   <group>
-    <mesh receiveShadow castShadow position={[0, 0.5, 0.005]}>
+    <mesh receiveShadow castShadow position={[0, 0.55, 0.005]}>
       <planeBufferGeometry args={[0.71, 1]} />
       <VideoTexture url={videoUrl} />
     </mesh>

@@ -1,5 +1,3 @@
-/* App.css */
-
 .scene-container {
   position: relative;
   width: 100vw;
@@ -8,29 +6,28 @@
 
 .button-container {
   position: absolute;
-  top: 10px;
+  top: 50%;
   left: 10px;
+  transform: translateY(-50%);
   z-index: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .button-container button {
-  margin-right: 10px;
-}
-
-.button-container button {
-  margin-right: 10px;
-  background-color: #4CAF50; /* Color de fondo verde */
+  margin-bottom: 10px;
+  background-color: #4CAF50;
   border: none;
-  color: white; /* Texto blanco */
-  padding: 15px 32px; /* Espaciado alrededor del texto */
+  color: white;
+  padding: 15px 32px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  transition-duration: 0.4s; /* Duración de la transición al pasar el cursor sobre el botón */
+  transition-duration: 0.4s;
   cursor: pointer;
 }
 
 .button-container button:hover {
-  background-color: #45a049; /* Cambiar el color de fondo al pasar el cursor sobre el botón */
+  background-color: #45a049;
 }

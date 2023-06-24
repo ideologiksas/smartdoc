@@ -49,6 +49,7 @@ const VideoTexture: React.FC<{ url: string }> = ({ url }) => {
                 texture.dispose();
             }
         };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [url]);
 
     useEffect(() => {
@@ -60,6 +61,7 @@ const VideoTexture: React.FC<{ url: string }> = ({ url }) => {
             video.current!.currentTime = 0;
             video.current!.play();
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [url]);
 
     return (
