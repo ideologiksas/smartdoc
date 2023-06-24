@@ -66,8 +66,8 @@ function App() {
       }, 6000); // Asume que el video "hello" tiene una duración de 5 segundos.
     }
 
-
-  }, [currentVideo, videos,helloAudios]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentVideo]);
 
   return (
     <div className="scene-container">
