@@ -8,11 +8,11 @@ import VideoTexture from './VideoTexture';
 
 
 
-const VideoPlane: React.FC<{ videoUrl: string }> = ({ videoUrl }) => (
+const VideoPlane: React.FC<{ videoUrl: string, loop: boolean }> = ({ videoUrl, loop }) => (
   <group>
     <mesh receiveShadow castShadow position={[0, 0.55, 0.005]}>
       <planeBufferGeometry args={[0.71, 1]} />
-      <VideoTexture url={videoUrl} />
+      <VideoTexture url={videoUrl} loop={loop} />
     </mesh>
   </group>
 );
@@ -51,23 +51,22 @@ const Controls = () => {
 
 
 
-  return <OrbitControls target={[ -0.09100015106675328,  0.3236130715250734,   -0.32934198177717106]} ref={controlsRef} args={[camera, gl.domElement]} />;
+  return <OrbitControls target={[-0.09100015106675328, 0.3236130715250734, -0.32934198177717106]} ref={controlsRef} args={[camera, gl.domElement]} />;
 };
 
-const VideoScene: React.FC<{ videoUrl: string; floorTextureUrl: string }> = ({ videoUrl, floorTextureUrl }) => {
-
+const VideoScene: React.FC<{ videoUrl: string, loop: boolean, floorTextureUrl: string }> = ({ videoUrl, loop, floorTextureUrl }) => {
   return (
-      <Canvas style={{ background: 'black' }}>
-        <PerspectiveCamera makeDefault 
-        position={[ 0.3988396435089508,1.0211306702433856,0.554781550240631]} fov={60}  />
-        <hemisphereLight color={"#ffffff"} groundColor={"#888888"} intensity={0.3} />
-        <directionalLight position={[0, 10, 5]} intensity={0.6} castShadow />
-        <Controls />
-        <Stars />
-        <VideoPlane videoUrl={videoUrl} />
-        <Floor textureUrl={floorTextureUrl} />
-        <HologramProjector />
-      </Canvas>
+    <Canvas style={{ background: 'black' }}>
+      <PerspectiveCamera makeDefault
+        position={[0.3988396435089508, 1.0211306702433856, 0.554781550240631]} fov={60} />
+      <hemisphereLight color={"#ffffff"} groundColor={"#888888"} intensity={0.3} />
+      <directionalLight position={[0, 10, 5]} intensity={0.6} castShadow />
+      <Controls />
+      <Stars />
+      <VideoPlane videoUrl={videoUrl} loop={loop} />
+      <Floor textureUrl={floorTextureUrl} />
+      <HologramProjector />
+    </Canvas>
   );
 };
 

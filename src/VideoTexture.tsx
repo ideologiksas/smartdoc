@@ -3,11 +3,15 @@ import { useLoader } from "react-three-fiber";
 import { TextureLoader } from "three";
 import * as THREE from "three";
 
-const VideoTexture: React.FC<{ url: string }> = ({ url }) => {
+const VideoTexture: React.FC<{ url: string, loop: boolean }> = ({ url, loop = true }) => {
     const video = useRef<HTMLVideoElement | null>(null);
     const [texture, setTexture] = useState<THREE.Texture | null>(null);
     const [isGlitchActive, setGlitchActive] = useState(true);
     const previousUrl = useRef<string>(url);
+
+    console.log('loop', loop);
+
+
 
     const glitchTexture = useLoader(TextureLoader, './sd_glitch.webp');
     glitchTexture.wrapS = THREE.RepeatWrapping;
@@ -17,6 +21,7 @@ const VideoTexture: React.FC<{ url: string }> = ({ url }) => {
         video.current = document.createElement('video');
 
         const handleVideoEnded = () => {
+            if(!loop) return;
             video.current!.pause();
             video.current!.currentTime = 0;
             video.current!.play();
@@ -34,7 +39,6 @@ const VideoTexture: React.FC<{ url: string }> = ({ url }) => {
 
         video.current.src = url;
         video.current.crossOrigin = 'anonymous';
-        video.current.loop = true;
         video.current.muted = true;
         video.current.addEventListener('ended', handleVideoEnded);
         video.current.addEventListener('canplay', handleCanPlay);
@@ -49,8 +53,8 @@ const VideoTexture: React.FC<{ url: string }> = ({ url }) => {
                 texture.dispose();
             }
         };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [url]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [url,loop]);
 
     useEffect(() => {
         if (previousUrl.current !== url) {
@@ -61,8 +65,8 @@ const VideoTexture: React.FC<{ url: string }> = ({ url }) => {
             video.current!.currentTime = 0;
             video.current!.play();
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [url]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [url,loop]);
 
     return (
         <>
