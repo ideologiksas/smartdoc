@@ -1,24 +1,12 @@
 import { OrbitControls, Stars, Plane, PerspectiveCamera } from '@react-three/drei';
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { Canvas, useLoader } from '@react-three/fiber';
 import * as THREE from 'three';
 import { TextureLoader } from 'three';
 import { useFrame, useThree } from 'react-three-fiber';
+import VideoTexture from './VideoTexture';
 
-const VideoTexture: React.FC<{ url: string }> = ({ url }) => {
-  const video = useRef(document.createElement('video'));
-  const texture = new THREE.VideoTexture(video.current);
 
-  useEffect(() => {
-    video.current.src = url;
-    video.current.crossOrigin = "anonymous";
-    video.current.loop = true;
-    video.current.muted = true;
-    video.current.play();
-  }, [url]);
-
-  return <meshPhongMaterial map={texture} side={THREE.DoubleSide} transparent />;
-};
 
 const VideoPlane: React.FC<{ videoUrl: string }> = ({ videoUrl }) => (
   <group>

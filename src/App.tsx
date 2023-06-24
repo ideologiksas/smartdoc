@@ -12,7 +12,7 @@ function App() {
     bye: 'https://streaming.ideologik.io/streaming?customer=smartdoc&sim=metaverse&video=sd_bye.webm'
   };
 
-  const [currentVideo, setCurrentVideo] = useState<string>(videos.iddle);
+  const [currentVideo, setCurrentVideo] = useState<string>(videos.hello);
 
   const changeVideo = (videoKey: string) => {
     setCurrentVideo(videos[videoKey]);
