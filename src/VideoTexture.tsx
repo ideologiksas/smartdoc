@@ -6,6 +6,7 @@ import * as THREE from "three";
 const VideoTexture: React.FC<{ url: string }> = ({ url }) => {
     const video = useRef<HTMLVideoElement | null>(null);
     const [texture, setTexture] = useState<THREE.Texture | null>(null);
+    const [isGlitchActive, setGlitchActive] = useState(true);
     const previousUrl = useRef<string>(url);
 
     const glitchTexture = useLoader(TextureLoader, './sd_glitch.webp');
@@ -28,6 +29,7 @@ const VideoTexture: React.FC<{ url: string }> = ({ url }) => {
             videoTexture.format = THREE.RGBAFormat;
             videoTexture.needsUpdate = true;
             setTexture(videoTexture);
+            setGlitchActive(false);
         };
 
         video.current.src = url;
@@ -49,15 +51,10 @@ const VideoTexture: React.FC<{ url: string }> = ({ url }) => {
         };
     }, [url]);
 
-
     useEffect(() => {
         if (previousUrl.current !== url) {
             previousUrl.current = url;
-            // Aplicar efecto de transición de glitch
-            if (texture) {
-                texture.dispose();
-                setTexture(null);
-            }
+            setGlitchActive(true);
             video.current!.pause();
             video.current!.src = url;
             video.current!.currentTime = 0;
@@ -67,8 +64,8 @@ const VideoTexture: React.FC<{ url: string }> = ({ url }) => {
 
     return (
         <>
-            {texture && <meshPhongMaterial map={texture} side={THREE.DoubleSide} transparent />}
-            <meshBasicMaterial map={glitchTexture} side={THREE.DoubleSide} transparent blending={THREE.AdditiveBlending} opacity={0.2} />
+            {texture && !isGlitchActive && <meshPhongMaterial map={texture} side={THREE.DoubleSide} transparent />}
+            {isGlitchActive && <meshBasicMaterial map={glitchTexture} side={THREE.DoubleSide} transparent blending={THREE.AdditiveBlending} opacity={0.2} />}
         </>
     );
 };
