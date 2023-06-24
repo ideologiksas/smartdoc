@@ -67,7 +67,7 @@ function App() {
     }
 
 
-  }, [currentVideo, videos]);
+  }, [currentVideo, videos,helloAudios]);
 
   return (
     <div className="scene-container">
