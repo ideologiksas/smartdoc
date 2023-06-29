@@ -13,27 +13,27 @@ function App() {
   };
 
   const helloAudios = [
-    './audios/saludo_1.mp3',
-    './audios/saludo_2.mp3',
-    './audios/saludo_3.mp3',
-    './audios/saludo_4.mp3',
-    './audios/saludo_5.mp3'
+    './audios/saludos/saludo_1.mp3',
+    './audios/saludos/saludo_2.mp3',
+    './audios/saludos/saludo_3.mp3',
+    './audios/saludos/saludo_4.mp3',
+    './audios/saludos/saludo_5.mp3'
   ];
 
-  const talkingAudios = [
-    './audios/pedido_1.mp3',
-    './audios/pedido_2.mp3',
-    './audios/pedido_3.mp3',
-    './audios/pedido_4.mp3',
-    './audios/pedido_5.mp3'
+  const diagnosticsAudios = [
+    './audios/pedidos_diagnostico/pedido_1.mp3',
+    './audios/pedidos_diagnostico/pedido_2.mp3',
+    './audios/pedidos_diagnostico/pedido_3.mp3',
+    './audios/pedidos_diagnostico/pedido_4.mp3',
+    './audios/pedidos_diagnostico/pedido_5.mp3'
   ];
 
   const byeAudios = [
-    './audios/despedida_1.mp3',
-    './audios/despedida_2.mp3',
-    './audios/despedida_3.mp3',
-    './audios/despedida_4.mp3',
-    './audios/despedida_5.mp3'
+    './audios/despedidas/despedida_1.mp3',
+    './audios/despedidas/despedida_2.mp3',
+    './audios/despedidas/despedida_3.mp3',
+    './audios/despedidas/despedida_4.mp3',
+    './audios/despedidas/despedida_5.mp3'
   ];
 
   const [currentVideo, setCurrentVideo] = useState<any>(videos.hello);
@@ -81,7 +81,7 @@ function App() {
         }}>Iddle</button>
         <button onClick={() => {
           changeVideo('talking');
-          playRandomAudio(talkingAudios);
+          playRandomAudio(diagnosticsAudios);
         }}>Talking</button>
         <button onClick={() => {
           changeVideo('waiting');
